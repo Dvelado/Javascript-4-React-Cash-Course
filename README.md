@@ -13,9 +13,26 @@ Es otra sintaxis para definir funciones, con:
 const nombre = () => { }
 ```
 
-Recomienda usarla porque hace más limpio el código con *callbacks*, que en JavaScript se usan muchísimo. También muestra la diferencia al exportar: con `function` se suele usar `export default`, y con arrow functions `export const`.
+Recomienda usarla porque hace más limpio el código con *callbacks*, que en JavaScript se usan muchísimo.
 
-La razón por la que importa: **en React, un componente es simplemente una función** que recibe *props* (argumentos) y devuelve HTML.
+También muestra la diferencia al exportar: con `function` se suele usar `export default`, y con arrow functions `export const`. Es lo más común, pero ambas formas sirven con cualquiera de los dos tipos:
+
+```js
+// Archivo A: función normal
+export default function saludar() { }
+export function despedir() { }
+```
+
+```js
+// Archivo B: arrow functions
+export const saludar = () => { }
+const despedir = () => { }
+export default despedir
+```
+
+> Cada archivo solo puede tener **un** `export default`, pero puede tener varios `export` con nombre.
+
+La razón por la que importa: **en React, un componente es simplemente una función** que recibe *props* (argumentos) y devuelve JSX (parecido a HTML).
 
 ### Funciones anónimas
 
@@ -30,11 +47,25 @@ React usa **JSX**, que permite escribir JavaScript dentro del HTML. Para que eso
 
 Su uso típico es el **renderizado condicional**: mostrar una parte de la interfaz u otra según el estado de la aplicación.
 
+> **Cuidado con `&&` en React:** si la condición es el número `0`, React muestra un `0` en pantalla. Por ejemplo, `lista.length && <Tabla />` muestra "0" cuando la lista está vacía. Se evita comparando explícitamente: `lista.length > 0 && <Tabla />`.
+
+### `||` y `??`
+
 ```js
 a || b
 ```
 
 Devuelve `b` cuando `a` es falso, así que sirve más para valores por defecto que como "lo opuesto" de `&&`.
+
+"Falso" incluye más de lo que parece: `0`, `""`, `null`, `undefined`, `NaN` y `false`. Por ejemplo, `0 || 10` devuelve `10` aunque `0` sea un valor válido.
+
+Para esos casos existe:
+
+```js
+a ?? b
+```
+
+Solo usa `b` cuando `a` es `null` o `undefined`. Así, `0 ?? 10` devuelve `0`.
 
 ## 3. Objetos
 
@@ -59,27 +90,29 @@ Se usa muchísimo con las *props* de los componentes.
 Si la clave y la variable tienen el mismo nombre, en vez de:
 
 ```js
-{ name: name }
+const person = { name: name }
 ```
 
 se escribe solo:
 
 ```js
-{ name }
+const person = { name }
 ```
+
+> **Nota:** el objeto siempre debe asignarse a algo (una variable, un `return`, un argumento). Si se escribe `{ name }` suelto en una línea, JavaScript lo interpreta como un bloque de código, no como un objeto.
 
 ### Spread operator (`...`)
 
 Copia un objeto y cambia solo lo que necesitás:
 
 ```js
-{ ...person, name: "Jack" }
+const person2 = { ...person, name: "Jack" }
 ```
 
 Funciona igual con arrays:
 
 ```js
-[...names, "Joel"]
+const names2 = [...names, "Joel"]
 ```
 
 Crea un array nuevo con un elemento extra. Lo remarca como **muy importante**, porque es la forma en que se actualizan arrays y objetos guardados en el *state* de React.
