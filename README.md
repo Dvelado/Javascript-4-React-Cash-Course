@@ -1,120 +1,117 @@
 # Javascript-4-React-Cash-Course
 Crash course for learning Javascript fundamentas with React for web development
 
- 
+# JavaScript para React
 
-1. Funciones 
+## 1. Funciones
 
-Arrow functions.  
+### Arrow functions
 
-Es otra sintaxis para definir funciones, con  
+Es otra sintaxis para definir funciones, con:
 
-const nombre = () => { }.  
+```js
+const nombre = () => { }
+```
 
-Recomienda usarla porque hace más limpio el código con callbacks, que en JavaScript se usan muchísimo. También muestra la diferencia al exportar: con function se suele usar export default, y con arrow functions export const. 
+Recomienda usarla porque hace más limpio el código con *callbacks*, que en JavaScript se usan muchísimo. También muestra la diferencia al exportar: con `function` se suele usar `export default`, y con arrow functions `export const`.
 
-La razón por la que importa: en React, un componente es simplemente una función que recibe props (argumentos) y devuelve HTML. 
+La razón por la que importa: **en React, un componente es simplemente una función** que recibe *props* (argumentos) y devuelve HTML.
 
- 
+### Funciones anónimas
 
-Funciones anónimas. Son funciones sin nombre, definidas directamente donde se usan. En React es muy común en eventos, por ejemplo onClick={() => ...} en un botón, en vez de declarar una función aparte. 
+Son funciones sin nombre, definidas directamente donde se usan. En React es muy común en eventos, por ejemplo `onClick={() => ...}` en un botón, en vez de declarar una función aparte.
 
- 
+## 2. Condicionales cortos (ternarios)
 
-2. Condicionales cortos (ternarios) 
+React usa **JSX**, que permite escribir JavaScript dentro del HTML. Para que eso no se vuelva un desorden, se evitan los `if/else` largos y se usan formas cortas:
 
-React usa JSX, que permite escribir JavaScript dentro del HTML. Para que eso no se vuelva un desorden, se evitan los if/else largos y se usan formas cortas: 
+- `condicion ? a : b` reemplaza un `if/else` completo.
+- `condicion && algo` muestra o asigna algo solo si la condición es verdadera.
 
-condicion ? a : b reemplaza un if/else completo. 
+Su uso típico es el **renderizado condicional**: mostrar una parte de la interfaz u otra según el estado de la aplicación.
 
-condicion && algo muestra o asigna algo solo si la condición es verdadera. 
+```js
+a || b
+```
 
-Su uso típico es el renderizado condicional: mostrar una parte de la interfaz u otra según el estado de la aplicación. 
+Devuelve `b` cuando `a` es falso, así que sirve más para valores por defecto que como "lo opuesto" de `&&`.
 
-a || b  
+## 3. Objetos
 
-devuelve b cuando a es falso, así que sirve más para valores por defecto que como "lo opuesto" de &&. 
+### Desestructuración
 
- 
+En vez de escribir tres líneas como:
 
-3. Objetos 
+```js
+const name = person.name
+```
 
-Desestructuración. En vez de escribir tres líneas como  
+se extraen varias propiedades en una sola:
 
-const name = person.name 
+```js
+const { name, age } = person
+```
 
-se extraen varias propiedades en una sola:  
+Se usa muchísimo con las *props* de los componentes.
 
-const { name, age } = person.  
+### Shorthand de propiedades
 
- 
+Si la clave y la variable tienen el mismo nombre, en vez de:
 
-Se usa muchísimo con las props de los componentes. 
+```js
+{ name: name }
+```
 
-Shorthand de propiedades. Si la clave y la variable tienen el mismo nombre, en vez de  
+se escribe solo:
 
-{ name: name }  
+```js
+{ name }
+```
 
-se escribe solo { name }. 
+### Spread operator (`...`)
 
-Spread operator (...). Copia un objeto y cambia solo lo que necesitás:  
+Copia un objeto y cambia solo lo que necesitás:
 
-{ ...person, name: "Jack" }.  
+```js
+{ ...person, name: "Jack" }
+```
 
- 
+Funciona igual con arrays:
 
-Funciona igual con arrays:  
+```js
+[...names, "Joel"]
+```
 
- 
+Crea un array nuevo con un elemento extra. Lo remarca como **muy importante**, porque es la forma en que se actualizan arrays y objetos guardados en el *state* de React.
 
-[...names, "Joel"]  
+## 4. Métodos de arrays: `map` y `filter`
 
-crea un array nuevo con un elemento extra. Lo remarca como muy importante, porque es la forma en que se actualizan arrays y objetos guardados en el state de React. 
+Deja de lado `reduce` porque se usa mucho menos en React.
 
- 
+- **`.map()`** recorre el array y devuelve uno nuevo con cada elemento transformado. En React es **la forma estándar de mostrar listas**: por cada elemento del array se devuelve un pedazo de interfaz (por ejemplo, un `<h1>` por cada nombre).
+- **`.filter()`** devuelve un array nuevo solo con los elementos que cumplen una condición. Útil para búsquedas y filtros en listas.
 
-4. Métodos de arrays: map y filter 
+## 5. Trabajar con APIs (solo los menciona)
 
-Deja de lado reduce porque se usa mucho menos en React. 
- 
+Estos temas no los explica, solo los recomienda como fundamentales para cualquier aplicación web:
 
-.map() recorre el array y devuelve uno nuevo con cada elemento transformado. En React es la forma estándar de mostrar listas: por cada elemento del array se devuelve un pedazo de interfaz (por ejemplo, un <h1> por cada nombre). 
+- **Promesas y `async/await`**, para manejar datos que tardan en llegar.
+- **Fetch API**, para pedir datos a un servidor. Recomienda aprenderla primero aunque después usés una librería como Axios.
 
- 
+> **Corrección:** Axios no es una librería de React, es de JavaScript en general y se usa también fuera de React.
 
-.filter() devuelve un array nuevo solo con los elementos que cumplen una condición. Útil para búsquedas y filtros en listas. 
+## Cierre
 
- 
+Admite que él empezó React sin saber casi nada de JavaScript y le costó, pero fue posible. Su consejo es tener al menos una idea básica de cada uno de estos conceptos para que el aprendizaje sea mucho más fácil.
 
-5. Trabajar con APIs (solo los menciona) 
+## Cómo se conecta con Tellcenter
 
-Estos temas no los explica, solo los recomienda como fundamentales para cualquier aplicación web: 
+Prácticamente todo lo del video aparece en una plataforma de gestión: `map` para mostrar listas (empleados, cuentas, registros), `filter` para búsquedas, ternarios para mostrar u ocultar elementos según el usuario o el estado, spread para actualizar datos en pantalla, y `fetch` con `async/await` para comunicarte con tu backend.
 
-Promesas y async/await, para manejar datos que tardan en llegar. 
+### Orden recomendado para practicar
 
-Fetch API, para pedir datos a un servidor. Recomienda aprenderla primero aunque después usés una librería como Axios. (Una corrección: Axios no es una librería de React, es de JavaScript en general y se usa también fuera de React.) 
-
- 
-
-Cierre 
-
-Admite que él empezó React sin saber casi nada de JavaScript y le costó, pero fue posible. Su consejo es tener al menos una idea básica de cada uno de estos conceptos para que el aprendizaje sea mucho más fácil. 
-
- 
-
-Cómo se conecta con Tellcenter 
-
-Prácticamente todo lo del video aparece en una plataforma de gestión: map para mostrar listas (empleados, cuentas, registros), filter para búsquedas, ternarios para mostrar u ocultar elementos según el usuario o el estado, spread para actualizar datos en pantalla, y fetch con async/await para comunicarte con tu backend. 
-
- 
-Un orden razonable para practicar sería:  
-
-arrow functions  
-
-desestructuración y spread  
-
-map/filter  
-
-ternarios  
-
-promesas, async/await y fetch.  
+1. Arrow functions
+2. Desestructuración y spread
+3. `map` / `filter`
+4. Ternarios
+5. Promesas, `async/await` y `fetch`
